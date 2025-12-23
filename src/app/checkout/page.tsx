@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { FEATURED_MOVIES } from "@/data/movies";
 import { THEATRES } from "@/data/theatres";
@@ -8,7 +8,7 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { motion } from "framer-motion";
 import { FaCreditCard, FaGooglePay, FaApplePay, FaCheckCircle, FaLock, FaShieldAlt } from "react-icons/fa";
 
-export default function CheckoutPage() {
+function CheckoutContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -176,5 +176,13 @@ export default function CheckoutPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function CheckoutPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-black text-white flex items-center justify-center">Loading...</div>}>
+            <CheckoutContent />
+        </Suspense>
     );
 }

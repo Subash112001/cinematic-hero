@@ -1,12 +1,13 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaDownload, FaHome, FaCalendar, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import Link from "next/link";
 
-export default function ConfirmationPage() {
+function ConfirmationContent() {
     const searchParams = useSearchParams();
     const bookingId = searchParams.get("bookingId") || "CINE-X8Y9Z";
 
@@ -101,5 +102,13 @@ export default function ConfirmationPage() {
                 </motion.div>
             </div>
         </div>
+    );
+}
+
+export default function ConfirmationPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-black text-white flex items-center justify-center">Loading...</div>}>
+            <ConfirmationContent />
+        </Suspense>
     );
 }
